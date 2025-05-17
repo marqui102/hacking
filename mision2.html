@@ -265,7 +265,7 @@
             switch (step) {
                 case 0:
                     if (command === '-connect /nr "tftower" -rd --3km') {
-                        outputToTerminal('Comando output en la consola ficticia hacker "Conectando a Torre Telefonica de High Rock....."');
+                        outputToTerminal('"Conectando a Torre Telefonica de High Rock....."');
                         setTimeout(() => {
                             const password = prompt('Introduce la contraseña para la Torre Telefonica de High Rock:');
                             if (password === '1|223r%') {
@@ -288,7 +288,7 @@
 
                 case 1:
                     if (command === '-connect /nr "speedcamara" -rd --10km') {
-                        outputToTerminal('Comando output "Conectando a radar de tráfico de autopista. *Seguridad baja*"');
+                        outputToTerminal('"Conectando a radar de tráfico de autopista. *Seguridad baja*"');
                         setTimeout(() => {
                             const answer = prompt('Responda a esta pregunta para conectarte: Un granjero tiene 17 ovejas. Todas menos nueve se escapan. ¿Cuántas ovejas le quedan al granjero?');
                             if (answer === '9') {
@@ -311,12 +311,12 @@
 
                 case 2:
                     if (command === '-connect /nr "tftower" -rd --6km') {
-                        outputToTerminal('Comando output "Conectando a la Torre Telefónica del Lago...."');
+                        outputToTerminal('"Conectando a la Torre Telefónica del Lago...."');
                         setTimeout(() => {
                             const answer = prompt('Responde a esta pregunta: Si un pato pone un huevo cada día, ¿cuántos huevos pondrán seis patos en una semana?.');
                             if (answer === '42') {
                                 outputToTerminal('Conexión establecida a la Torre Telefónica del Lago', 'success');
-                                updateChat("Perfecto, no nos relajemos, ahora empieza lo bueno. Necesito tu concentración al máximo. Te ayudaré pon el comando -nmap {y los 4 codigos postales con comas de menor a mayor de la zona de asalto} [Ejemplo: -nmap {904,905,906,907}. Con esto conseguiras una imagen muy preciada para los siguientes pasos.");
+                                updateChat("Perfecto, no nos relajemos, ahora empieza lo bueno. Necesito tu concentración al máximo. Te ayudaré pon el comando -nmap {y los 4 codigos postales con comas de menor a mayor de la zona de asalto} [Ejemplo: -nmap {123,156,202,340}. Con esto conseguiras una imagen muy preciada para los siguientes pasos.");
                                 step++;
                                 attempts[step - 1] = 0;
                             } else {
