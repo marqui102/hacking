@@ -155,7 +155,7 @@
 </head>
 <body>
     <div id="chat-container">
-        <p><span class="anoninxrp-nombre">Anoninxrp:</span> <span class="anoninxrp-mensaje">"Hoy te acompañaré en esta misión sigue mis pasos y todo irá bien. También necesitaré que pienses"</span></p>
+        <p><span class="anoninxrp-nombre">Anoninxrp:</span> <span class="anoninxrp-mensaje">"Hoy te acompañaré en esta misión sigue mis pasos y todo irá bien. También necesitaré que pienses. Empieza ejecutando el comando -manual"</span></p>
     </div>
 
     <div class="terminal" id="terminal">
@@ -294,6 +294,7 @@
             }
             if (command === '-manual') {
                 downloadManual();
+                outputToTerminal('Manual del hacker descargado, ahora la acción');
                 return; // Importante: salir de la función para no ejecutar la lógica de los pasos
             }
 
