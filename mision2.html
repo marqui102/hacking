@@ -160,6 +160,7 @@
 
     <div class="terminal" id="terminal">
         <p>Iniciando sistema...</p>
+        <p id="inicializado" style="display: none;"></p>
     </div>
 
     <input type="text" id="command-input" placeholder="Introduce el comando aquí..." disabled>
@@ -195,6 +196,7 @@
     </div>
     <script>
         const terminal = document.getElementById('terminal');
+        const inicializadoText = document.getElementById('inicializado');
         const commandInput = document.getElementById('command-input');
         const successScreen = document.getElementById('success-screen');
         const fakeSuccessScreen = document.getElementById('fake-success-screen');
@@ -236,6 +238,7 @@
         });
 
         setTimeout(() => {
+            inicializadoText.textContent = "Sistema inicializado";
             updateChat("\"Tendrás que conectarte a la Torre Telefónica que está aqui cerca a 3km en High Rock con el comando -connect\"");
             commandInput.disabled = false;
         }, 2000);
@@ -275,13 +278,13 @@
             document.body.removeChild(link); // Limpiar el elemento <a> después de la descarga
         }
         function downloadManual() {
-    const link1 = document.createElement('a');
-    link1.href = 'https://drive.google.com/uc?id=1safxGNj_umh5UsbddImEWNWipxGO2ep2&export=download';
-    link1.download ="manual.jpg"; // Puedes cambiar el nombre del archivo si lo deseas
-    document.body.appendChild(link1);
-    link1.click();
-    document.body.removeChild(link1); // Limpiar el elemento <a> después de la descarga
-}
+            const link1 = document.createElement('a');
+            link1.href = 'https://drive.google.com/uc?export=download&id=1-4LRPVKZ06qsUtCRmY0-foqcmYwETDsH';
+            link1.download ="manual.pdf"; // Puedes cambiar el nombre del archivo si lo deseas
+            document.body.appendChild(link1);
+            link1.click();
+            document.body.removeChild(link1); // Limpiar el elemento <a> después de la descarga
+        }
 
         function processCommand(command) {
             if (checkFailure()) return;
@@ -357,7 +360,7 @@
                             const answer = prompt('Responde a esta pregunta: Si un pato pone un huevo cada día, ¿cuántos huevos pondrán seis patos en una semana?.');
                             if (answer === '42') {
                                 outputToTerminal('Conexión establecida a la Torre Telefónica del Lago', 'success');
-                                updateChat("\"Perfecto, no nos relajemos, ahora empieza lo bueno. Necesito tu concentración al máximo. Te ayudaré pon el comando -nmap {y los 4 codigos postales con comas de menor a mayor de la zona de asalto} [Ejemplo: -nmap {904,905,906,907}. Con esto conseguiras una imagen muy preciada para los siguientes pasos.\"");
+                                updateChat("\"Perfecto, no nos relajemos, ahora empieza lo bueno. Necesito tu concentración al máximo. Te ayudaré pon el comando -nmap {y los 4 codigos postales con comas de menor a mayor de la zona de asalto} [Ejemplo: -nmap {102,145,206,207}. Con esto conseguiras una imagen muy preciada para los siguientes pasos.\"");
                                 step++;
                                 attempts[step - 1] = 0;
                                 // Verificar si es el tercer comando y ocultar el botón VPN (si no se hizo en el paso anterior por fallo)
