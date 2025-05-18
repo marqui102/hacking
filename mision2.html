@@ -271,7 +271,7 @@
             typeText("Iniciando sistema...", terminalInitialText);
             setTimeout(() => {
                 updateChat("\"Hoy te acompañaré en esta misión sigue mis pasos y todo irá bien. También necesitaré que pienses. Empieza ejecutando el comando -manual\"");
-		 outputToTerminal ("¡Sistema inicializado!🖥️");
+        outputToTerminal ("¡Sistema inicializado!🖥️");
                 commandInput.disabled = false;
             }, 2000);
         }, 1000);
@@ -345,17 +345,17 @@
                                 outputToTerminal('Conexión establecida a la Torre Telefonica de High Rock 🔌', 'success');
                                 updateChat("\"Bien hecho chaval! Ahora para acercarnos a nuestro objetivo, tendremos que hacer un salto de conexion a una cámara radar que está en la autopista a 10km de nuestra actual conexión.\"");
                                 step++;
-                                attempts[step - 1] = 0; // Reset attempts for the next step
+                                attempts[step] = 0; // Reset attempts for the next step
                             } else {
                                 outputToTerminal('Acceso denegado. Vuelve a intentarlo.', 'error');
                                 attempts[step]++;
+                                checkFailure(); // Llamamos a checkFailure() aquí
                             }
-                            checkFailure();
                         }, 3000);
                     } else {
                         outputToTerminal('Comando incorrecto. Intenta de nuevo.', 'error');
                         attempts[step]++;
-                        checkFailure();
+                        checkFailure(); // Llamamos a checkFailure() aquí
                     }
                     break;
 
@@ -368,7 +368,7 @@
                                 outputToTerminal('Conexion establecida al radar de trafico de autopista', 'success');
                                 updateChat("\"Si haces esta conexion a la Torre Telefonica del lago que está cerca a unos 6km, empezaremos a abrir casas y desconectar todo. Vamos ahí duro!!!\"");
                                 step++;
-                                attempts[step - 1] = 0;
+                                attempts[step] = 0;
                                 // Verificar si es el segundo comando y ocultar el botón VPN
                                 if (step === 3 && vpnButtonVisible) {
                                     vpnButton.classList.add('hidden');
@@ -377,8 +377,8 @@
                             } else {
                                 outputToTerminal('Respuesta incorrecta. Vuelve a intentarlo.', 'error');
                                 attempts[step]++;
+                                checkFailure();
                             }
-                            checkFailure();
                         }, 3000);
                     } else {
                         outputToTerminal('Comando incorrecto. Intenta de nuevo.', 'error');
@@ -396,7 +396,7 @@
                                 outputToTerminal('Conexión establecida a la Torre Telefónica del Lago', 'success');
                                 updateChat("\"Perfecto, no nos relajemos, ahora empieza lo bueno. Necesito tu concentración al máximo. Te ayudaré pon el comando -nmap {y los 4 codigos postales con comas de menor a mayor de la zona de asalto} [Ejemplo: -nmap {102,145,206,207}. Con esto conseguiras una imagen muy preciada para los siguientes pasos.\"");
                                 step++;
-                                attempts[step - 1] = 0;
+                                attempts[step] = 0;
                                 // Verificar si es el tercer comando y ocultar el botón VPN (si no se hizo en el paso anterior por fallo)
                                 if (step === 4 && vpnButtonVisible) {
                                     vpnButton.classList.add('hidden');
@@ -405,8 +405,8 @@
                             } else {
                                 outputToTerminal('Respuesta incorrecta. Vuelve a intentarlo.', 'error');
                                 attempts[step]++;
+                                checkFailure();
                             }
-                            checkFailure();
                         }, 3000);
                     } else {
                         outputToTerminal('Comando incorrecto. Intenta de nuevo.', 'error');
