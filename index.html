@@ -2,253 +2,174 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Minijuego Hacking</title>
+  <title>Terminal Hacker</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background-color: #121212;
-      color: #fff;
       margin: 0;
       padding: 0;
-      text-align: center;
+      background: black url('https://ih1.redbubble.net/image.3637288169.0736/fposter,small,wall_texture,square_product,600x600.u6.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #00ff00;
+      font-family: monospace;
+      overflow: hidden;
     }
 
-    .container {
-      margin-top: 50px;
-    }
-
-    .terminal {
-      background-color: #333;
+    .marco {
+      border: 3px solid #00ff00;
       padding: 20px;
-      border-radius: 5px;
-      width: 80%;
-      margin: 0 auto;
-      height: 300px;
+      margin: 20px;
+      height: 90vh;
       overflow-y: auto;
-      color: #00ff00;
-      font-family: 'Courier New', Courier, monospace;
+      background-color: rgba(0, 0, 0, 0.85);
     }
 
-    #start-button {
-      margin-top: 20px;
-      padding: 10px 20px;
-      background-color: #444;
-      border: 1px solid #00ff00;
-      color: #00ff00;
-      cursor: pointer;
-      border-radius: 5px;
-      display: inline-block;
-    }
-
-    #command-input {
-      margin-top: 20px;
-      padding: 10px;
-      background-color: #333;
-      color: #fff;
-      border: 1px solid #00ff00;
-      width: 60%;
-      border-radius: 5px;
-      font-family: 'Courier New', Courier, monospace;
-    }
-
-    .success-screen, .fake-success-screen, .red-screen {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: #121212;
-      color: #00ff00;
-      font-size: 1.5em;
-      display: none;
-      z-index: 9999;
-      padding: 50px;
-      text-align: center;
+    #terminal {
       white-space: pre-wrap;
     }
 
-    .fake-success-screen p {
-      color: #fff;
-      line-height: 1.4;
+    #input {
+      display: inline;
     }
 
-    .warning {
-      color: yellow;
-      font-weight: bold;
-      animation: blink 1s step-end infinite;
-      font-size: 1.2em;
-      margin-top: 20px;
+    .cursor {
+      display: inline-block;
+      width: 10px;
+      animation: blink 1s step-start infinite;
     }
 
     @keyframes blink {
-      50% {
-        visibility: hidden;
-      }
+      50% { background: transparent; }
+      0%, 100% { background: #00ff00; }
     }
 
-    /* Red screen style */
-    .red-screen {
-      background-color: red;
-      color: black;
-      font-size: 1.2em;
-      font-weight: bold;
-      overflow: auto;
-      white-space: pre-wrap;
-    }
-
-    .red-screen p {
-      margin-top: 20px;
-      font-size: 1em;
-      animation: blink 1.5s step-end infinite;
-      line-height: 1.4;
-    }
-
-    /* Button style for VPN */
-    #vpn-button {
-      position: fixed;
-      top: 10px;
-      right: 10px;
-      padding: 3px 7px;
-      background-color: #444;
-      color: #00ff00;
-      border: 1px solid #00ff00;
-      cursor: pointer;
-      border-radius: 5px;
-      font-size: 12px;
+    audio {
+      display: none;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Consola de Hacking - Bunker</h1>
-    <p>Usa los comandos correctos para hackear el bunker y que tus compañeros consigan su objetivo</p>
-
-    <button id="start-button">Empezar a Hackear</button>
-    
-    <div class="terminal" id="terminal">
-      <p>Bienvenido al sistema de seguridad del almacén. ¡Comienza hackeando!</p>
-    </div>
-
-    <input type="text" id="command-input" placeholder="Escribe tu comando aquí...">
-
-    <div class="success-screen" id="success-screen">
-      <p>✅ <strong>¡Hackeo exitoso!</strong> ✅<br><br>
-      Has accedido con éxito al sistema del almacén. <br>
-      ¡Tu misión ha sido completada! 🎉
-    </div>
-
-    <div class="fake-success-screen" id="fake-success-screen">
-      <p>✅ <strong>¡Hackeo exitoso!</strong> ✅<br><br>
-      Has accedido con éxito al sistema del almacén. <br>
-      Pero algo salió mal... ⚠️<br><br>
-      <span class="warning">⚠️ Se te olvidó conectar la VPN, mira lo que se te ha descargado ⚠️</span>
-    </div>
-
-    <div class="red-screen" id="red-screen">
-      <p>‼️ <strong>INTENTO FALLIDO. HAS SIDO DESCUBIERTO.</strong> ‼️<br><br>
-      ❌ ¡¡TE ESTAMOS VIGILANDO!! ❌<br>
-      💀 ¡TODO ESTÁ REGISTRADO! 💀<br><br>
-      📍 ¡NO PUEDES ESCAPAR DE NOSOTROS! 📍<br>
-      ⚠️ ¡Tu ubicación está siendo rastreada! ⚠️<br>
-      ⚡ ¡Te tenemos en la mira! ⚡<br>
-      ❌ ¡Lo has intentado! Te hemos pillado… ¡ahora vas a pagar las consecuencias! ❌<br>
-      🔴 Si decides separarte del ordenador y arrodillarte frente a la puerta de tu casa, tus compañeros estarán a salvo. Sólo tú serás el objetivo. <br>
-      ⚡ Te toca decidir: ¿Arriesgas tu vida por ellos? ¿Realmente vale la pena lo que haces por tu familia, o estás dispuesto a sacrificar todo por ellos? ⚡<br>
-      🏃‍♂️ La decisión está en tus manos. ¡Haz lo que creas correcto! ¡Hazlo rápido! 🏃‍♂️<br>
-      🙉 Recuerda, te escuchamos. No digas cosas que no debas, o sabrás lo que pasará 🙉 <br><br>
-      </p>
+  <div class="marco">
+    <div id="terminal">
+      Bienvenido a la terminal hacker<br>
+      <span id="salida"></span>
+      <br><span id="input-line">&gt; <span id="input"></span><span class="cursor"></span></span>
     </div>
   </div>
 
-  <!-- VPN Button -->
-  <button id="vpn-button">VPN</button>
+  <audio id="beep" src="https://www.soundjay.com/button/sounds/beep-07.mp3" preload="auto"></audio>
 
   <script>
-    let commandAttempts = 0;
-    let gameStarted = false;
-    let vpnActivated = false;
+    const terminal = document.getElementById("salida");
+    const input = document.getElementById("input");
+    const beep = document.getElementById("beep");
+    let comando = "";
 
-    const startButton = document.getElementById('start-button');
-    const terminal = document.getElementById('terminal');
-    const commandInput = document.getElementById('command-input');
-    const successScreen = document.getElementById('success-screen');
-    const fakeSuccessScreen = document.getElementById('fake-success-screen');
-    const vpnButton = document.getElementById('vpn-button');
-    const redScreen = document.getElementById('red-screen');
-
-    const validCommands = [
-      'unlock --door12',
-      'shutdown -r --10m - CAM2',
-      'scan --port 8080',
-      'decrypt --file=database --key=xyz',
-      'disable --alarm --cam3'
+    const fakeNoise = [
+      "dir_s",
+      "checking proxy tunnel...",
+      "dns_lookup [COMPLETE]",
+      "initiating override...",
+      "root access requested",
+      "fetching data package...",
+      "monitoring traffic..."
     ];
-    let executedCommands = 0;
 
-    startButton.addEventListener('click', () => {
-      startHack();
-    });
-
-    commandInput.addEventListener('keyup', function(event) {
-      if (event.key === 'Enter' && gameStarted) {
-        executeCommand(commandInput.value);
-        commandInput.value = '';
-      }
-    });
-
-    vpnButton.addEventListener('click', () => {
-      vpnActivated = true;
-      vpnButton.style.display = 'none'; // Hide VPN button after being clicked
-      terminal.innerHTML += '<p>VPN activada. ¡Puedes continuar con el hackeo!</p>';
-    });
-
-    function startHack() {
-      gameStarted = true;
-      terminal.innerHTML += '<p>¡Comienza el hackeo! Introduce los comandos correctamente...</p>';
-      startButton.style.display = 'none';
-    }
-
-    function executeCommand(command) {
-      if (validCommands.includes(command)) {
-        executedCommands++;
-        terminal.innerHTML += `<p>Comando ejecutado: ${command}</p>`;
-        if (executedCommands === validCommands.length) {
-          hackSuccessful();
+    function escribirLinea(texto, velocidad = 30, callback = null) {
+      let i = 0;
+      const intervalo = setInterval(() => {
+        terminal.innerHTML += texto[i];
+        i++;
+        if (i >= texto.length) {
+          clearInterval(intervalo);
+          terminal.innerHTML += "\n";
+          if (callback) callback();
         }
-      } else {
-        commandAttempts++;
-        terminal.innerHTML += `<p class="error">Comando incorrecto: ${command}</p>`;
-        if (commandAttempts >= 3) {
-          redScreen.style.display = 'block';
-        }
+      }, velocidad);
+    }
+
+    function reproducirRuido() {
+      const ruido = fakeNoise[Math.floor(Math.random() * fakeNoise.length)];
+      escribirLinea(ruido, 20);
+    }
+
+    function outputResultado(cmd) {
+      switch (cmd.toLowerCase()) {
+        case "scan":
+          escribirLinea("Detectado:\n - 192.168.1.3\n - 10.0.0.8\n - 172.16.0.2", 20);
+          break;
+        case "get passwd":
+          escribirLinea("passwd.txt:\n - root:toor123\n - admin:admin2025\n - guest:qwerty", 20);
+          break;
+        case "whoami":
+          escribirLinea("Usuario: infiltrador_root", 20);
+          break;
+        case "ls":
+          escribirLinea("Archivos:\n - hack.exe\n - logs.db\n - network_keys.key\n - notes.txt", 20);
+          break;
+        case "connect":
+          escribirLinea("Conectando a 10.0.0.8... [Éxito]", 20);
+          break;
+        case "unlock":
+          escribirLinea(
+            `Desbloqueo exitoso...
+IPv6: fe80::a8bb:ccff:fe00:1122
+Contraseñas encontradas:
+ - admin:lethalpass900
+ - camara_ext:liveview123
+ - safe_hall:1987vault!
+Códigos de cajas fuertes:
+ - Zona A: 4032
+ - Zona B: 9910
+Alarmas activas:
+ - Casa 1: Desactivada (puerta trasera)
+ - Casa 2: Activada (sensor de movimiento)
+Archivos secretos:
+ - /system/intel/maps/top_secret.jpg
+ - /confidential/memo2025.pdf
+ - /root/hacks/bypass_code.js`, 15);
+          break;
+        case "hack gordo":
+          escribirLinea("Ejecutando hack gordo...\nIniciando descarga...", 20, () => {
+            window.location.href = "https://tr.rbxcdn.com/30DAY-Avatar-7C39E9F97AD631064948F8F16D350453-Png/352/352/Avatar/Webp/noFilter";
+          });
+          break;
+        case "help":
+          escribirLinea(`Comandos disponibles:
+ - dir_s
+ - scan
+ - get passwd
+ - whoami
+ - ls
+ - connect
+ - unlock
+ - hack gordo
+ - help`, 20);
+          break;
+        default:
+          escribirLinea("Comando no reconocido.", 20);
       }
     }
 
-    function hackSuccessful() {
-      if (vpnActivated) {
-        successScreen.style.display = 'block';
-      } else {
-        fakeSuccessScreen.style.display = 'block';
-        createTxtFile();
+    setInterval(() => {
+      reproducirRuido();
+    }, 5000);
+
+    document.addEventListener("keydown", (e) => {
+      beep.play();
+
+      if (e.key === "Backspace") {
+        comando = comando.slice(0, -1);
+        input.textContent = comando;
+      } else if (e.key === "Enter") {
+        terminal.innerHTML += `> ${comando}\n`;
+        outputResultado(comando);
+        comando = "";
+        input.textContent = "";
+      } else if (e.key.length === 1) {
+        comando += e.key;
+        input.textContent = comando;
       }
-    }
-
-    function createTxtFile() {
-      const ip = generateRandomIP();
-      const message = `Tu IP es ${ip}.\nUbicación: ERLC, CP Zona Housing.\nIntentaste hackearnos sin protección y ahora estamos tras de ti.\n\nDurante todo el proceso, hemos recolectado toda tu información y la de tu banda... No tienes escapatoria. 💻🔍\n\nAhora debes tomar una decisión que cambiará todo... 🚨\n\nTienes dos opciones:\n\n1. Puedes ser el único objetivo y salvar a tu banda, o...\n2. Puedes avisarles y ponerlos a todos en peligro, pero ellos morirán si tomas esa decisión. Sabemos que tienen superioridad en armas, pero no podrán enfrentarse a nosotros.\n\nSi decides hacer lo correcto y proteger a tu gente, debes arrodillarte frente a la puerta de tu casa. Ellos sabrán que hiciste lo que tenías que hacer, incluso si te cuesta la vida.\n\n⚠️ ¿Qué harás? ⚠️\n\nLa decisión está en tus manos, y sabemos lo que elegirás... ¡Hazlo rápido! Tu vida está en juego, pero también la de ellos.\n\n¡Piensa bien, elige sabiamente, y recuerda que te estamos observando y escuchando! 🕵️‍♂️\n\nNo te confundas... ¡Te estamos escuchando en todo momento! ⚠️\n`;
-
-      const blob = new Blob([message], { type: 'text/plain' });
-      const link = document.createElement('a');
-      link.href = URL.createObjectURL(blob);
-      link.download = 'AVISO_PRIORITARIO.txt';
-      link.click();
-    }
-
-    function generateRandomIP() {
-      return `${Math.floor(Math.random() * 256)}.${Math.floor(Math.random() * 256)}.${Math.floor(Math.random() * 256)}.${Math.floor(Math.random() * 256)}`;
-    }
+    });
   </script>
 </body>
 </html>
-
