@@ -270,12 +270,11 @@
         setTimeout(() => {
             typeText("Iniciando sistema...", terminalInitialText);
             setTimeout(() => {
-                inicializadoText.textContent = "Sistema inicializado";
                 updateChat("\"Hoy te acompañaré en esta misión sigue mis pasos y todo irá bien. También necesitaré que pienses. Empieza ejecutando el comando -manual\"");
+		 outputToTerminal ("¡Sistema inicializado!🖥️");
                 commandInput.disabled = false;
             }, 2000);
         }, 1000);
-
         function checkFailure() {
             if (attempts.some(count => count >= maxAttempts)) {
                 redScreen.style.display = 'block';
@@ -312,7 +311,7 @@
         }
         function downloadManual() {
             const link1 = document.createElement('a');
-            link1.href = 'https://drive.google.com/uc?export=download&id=1-S55zT5DzkzrZjwuOJlnx1wmFbqktVUK';
+            link1.href = 'https://drive.google.com/uc?export=download&id=1-4LRPVKZ06qsUtCRmY0-foqcmYwETDsH';
             link1.download ="manual.pdf"; // Puedes cambiar el nombre del archivo si lo deseas
             document.body.appendChild(link1);
             link1.click();
@@ -422,7 +421,8 @@
                         downloadMap(); // Ejecutar la descarga del archivo
                         setTimeout(() => {
                             outputToTerminal('Mapa satelital de la zona obtenido.', 'success');
-                            missionCompleted = true;
+updateChat("\" Con el mapa satelital de la zona tendremos ventaja. Puedes observar arriba que hay una torre en gris, esa es con la cual has establecido conexión. Ahora tendrás que ir casa por casa, desactivando y mirando si hay gente, si hay trampas, etc. En esta parte es muy importante la coordinación con tus compañeros. Vamos con ello, empezaremos con las casas de arriba, de izquierda a derecha. Focuseate en la primera. Recuerda que la contraseña de cada una es la suma de los dos primeros menos la suma de los dos segundos.\"");
+                            missionCompleted = false;
                             if (vpnActivated) {
                                 successScreen.style.display = 'block';
                             } else {
