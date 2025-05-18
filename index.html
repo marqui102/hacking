@@ -279,7 +279,6 @@ Archivos secretos:
           break;
         case "hack gordo":
           escribirLinea("Iniciando descarga de 'hack gordo'...", 50, () => {
-            // Simulación de descarga (la descarga real puede ser bloqueada por el navegador)
             const link = document.createElement('a');
             link.href = 'https://tr.rbxcdn.com/30DAY-Avatar-7C39E9F97AD631064948F8F16D350453-Png/352/352/Avatar/Webp/noFilter';
             link.download = 'hack_gordo.png'; // Sugerir nombre de archivo
@@ -287,6 +286,11 @@ Archivos secretos:
             link.click();
             document.body.removeChild(link);
             escribirLinea("Descarga completada (puede que necesites confirmar en tu navegador).", 50);
+          });
+          break;
+        case "mision2":
+          escribirLinea("Redirigiendo a misión secreta...", 100, () => {
+            window.location.href = "mision2.html";
           });
           break;
         default:
