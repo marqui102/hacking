@@ -356,6 +356,7 @@
                             const password = prompt('Introduce la contraseña para la Torre Telefonica de High Rock:');
                             if (password === 'hola') {
                                 outputToTerminal('Conexión establecida a la Torre Telefonica de High Rock 🔌', 'success');
+                                 updateChat("\"Bien hecho chaval! Ahora para acercarnos a nuestro objetivo, tendremos que hacer un salto de conexion a una cámara radar que está en la autopista a 10km de nuestra actual conexión.\"");
                                 step++;
                                 attempts[step] = 0; // Reset attempts for the next step
                             } else {
