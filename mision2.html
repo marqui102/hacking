@@ -271,8 +271,8 @@
             typeText("Iniciando sistema...", terminalInitialText);
             setTimeout(() => {
                 updateChat("\"Hoy te acompañaré en esta misión sigue mis pasos y todo irá bien. Ejecuta -manual cuando quieras consultar la guía.\"");
-                updateChat("\"Tendrás que conectarte a la Torre Telefónica que está aqui cerca a 3km en High Rock con el comando -connect\"");
         outputToTerminal ("¡Sistema inicializado!🖥️");
+                updateChat("\"Tendrás que conectarte a la Torre Telefónica que está aqui cerca a 3km en High Rock con el comando -connect\"");
                 commandInput.disabled = false;
             }, 2000);
         }, 1000);
@@ -331,7 +331,7 @@
                                     "4. -connect /nr \"tftower\" -rd --6km\n" +
                                     "5. -nmap {904,905,906,907}\n" +
                                     "6. -focus \"house\" --9041\n" +
-                                    "7. -bypass \"alarm\"\n" +
+                                    "7. -bypass \"alarm\ -ipv6 --3de0:8d2e:48:4f:d678:92:51a:4"\n" +
                                     "-ipconfig: Muestra la configuración IP del dispositivo objetivo.\n";
                 createTxtFile(helpContent, 'AYUDA.txt');
                 outputToTerminal('Ayuda mandada, mira lo descargado', 'success');
@@ -351,7 +351,7 @@
             switch (step) {
                 case 0:
                     if (command === '-connect /nr "tftower" -rd --3km') {
-                        outputToTerminal('Comando output en la consola ficticia hacker "Conectando a Torre Telefonica de High Rock....."');
+                        outputToTerminal('"Conectando a Torre Telefonica de High Rock....."');
                         setTimeout(() => {
                             const password = prompt('Introduce la contraseña para la Torre Telefonica de High Rock:');
                             if (password === 'hola') {
@@ -374,7 +374,7 @@
 
                 case 1:
                     if (command === '-connect /nr "speedcamara" -rd --10km') {
-                        outputToTerminal('Comando output "Conectando a radar de tráfico de autopista. *Seguridad baja*"');
+                        outputToTerminal('"Conectando a radar de tráfico de autopista. *Seguridad baja*"');
                         setTimeout(() => {
                             const answer = prompt('Responda a esta pregunta para conectarse: Un granjero tiene 17 ovejas. Todas menos nueve se escapan. ¿Cuántas ovejas le quedan al granjero?');
                             if (answer === '9') {
@@ -401,7 +401,7 @@
 
                 case 2:
                     if (command === '-connect /nr "tftower" -rd --6km') {
-                        outputToTerminal('Comando output "Conectando a la Torre Telefónica del Lago...."');
+                        outputToTerminal('"Conectando a la Torre Telefónica del Lago...."');
                         setTimeout(() => {
                             const answer = prompt('Responde a esta pregunta: Si un pato pone un huevo cada día, ¿cuántos huevos pondrán seis patos en una semana?.');
                             if (answer === '42') {
