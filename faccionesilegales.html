@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coralia - Facciones y Caminos Ilegales</title>
+    <style>
+        body {
+            font-family: 'Roboto Mono', monospace; /* Fuente monoespaciada para un look tecnológico */
+            margin: 0;
+            background-color: #000; /* Fondo negro */
+            color: #00ff80; /* Texto verde neón */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 30px;
+            box-sizing: border-box;
+        }
+
+        h2 {
+            color: #00ffff; /* Cian neón */
+            font-size: 2.2em;
+            margin-bottom: 30px;
+            text-shadow: 0 0 10px #00ffff;
+            letter-spacing: 0.05em;
+            text-align: center;
+        }
+
+        .info-section {
+            background-color: #111; /* Gris muy oscuro casi negro */
+            border-radius: 6px;
+            box-shadow: 0 0 10px rgba(0, 255, 128, 0.3);
+            margin-bottom: 20px;
+            width: 85%;
+            max-width: 700px;
+            overflow: hidden;
+            border: 1px solid #00ff80; /* Borde verde neón */
+        }
+
+        .section-header {
+            background-color: #222;
+            color: #00ff80;
+            padding: 12px;
+            text-align: left;
+            font-size: 1em;
+            cursor: pointer;
+            position: relative;
+            border-bottom: 1px solid #333;
+            letter-spacing: 0.02em;
+        }
+
+        .section-header::before {
+            content: '>';
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            margin-right: 5px;
+        }
+
+        .section-header.active::before {
+            content: 'v';
+        }
+
+        .section-content {
+            padding: 15px;
+            display: none;
+            border-top: 1px solid #333;
+            font-size: 0.9em;
+            line-height: 1.4;
+        }
+
+        .section-content.show {
+            display: block;
+            animation: scanline 0.5s ease-out forwards;
+        }
+
+        @keyframes scanline {
+            0% { transform: translateY(-10px); opacity: 0; background-color: #000; }
+            50% { background-color: #00ff8011; } /* Ligero destello */
+            100% { transform: translateY(0); opacity: 1; background-color: #000; }
+        }
+
+        .level-info, .illegal-path-info {
+            padding: 10px 0;
+            border-bottom: 1px solid #333;
+        }
+
+        .level-info:last-child, .illegal-path-info:last-child {
+            border-bottom: none;
+        }
+
+        .level-info h4, .illegal-path-info h4 {
+            color: #00ffff; /* Cian neón */
+            margin-top: 0;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+            text-shadow: 0 0 5px #00ffff;
+        }
+
+        .level-info p, .illegal-path-info p {
+            color: #00ff80;
+            margin-bottom: 8px;
+        }
+
+        .requisitos-list, .droga-list, .armas-list, .misiones-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 10px;
+        }
+
+        .requisitos-list li, .droga-list li, .armas-list li, .misiones-list li {
+            background-color: #222;
+            border-radius: 4px;
+            padding: 8px;
+            margin-bottom: 6px;
+            border-left: 3px solid #00ffff; /* Acento de lista cian */
+        }
+
+        .droga-details, .arma-details, .mision-details {
+            margin-top: 6px;
+            padding-left: 12px;
+            font-size: 0.85em;
+            color: #00cc66; /* Verde más oscuro */
+        }
+
+        .toggle-details-button {
+            background: none;
+            color: #00ffff;
+            border: 1px solid #00ffff;
+            padding: 5px 8px;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+            margin-top: 6px;
+            font-size: 0.8em;
+        }
+
+        .toggle-details-button:hover {
+            background-color: #00ffff22;
+            color: #00ffff;
+        }
+
+        /* Estilos específicos de sección con temática tecnológica */
+        .nivel-faccion-section .section-header {
+            background-color: #004d40; /* Verde azulado oscuro */
+            color: #a7ffeb; /* Verde azulado claro */
+        }
+
+        .camino-ilegal-section .section-header {
+            background-color: #311b92; /* Morado oscuro */
+            color: #d1c4e9; /* Lila claro */
+        }
+
+        .cartel-droga-details {
+            background-color: #1a237e; /* Azul oscuro */
+            color: #9fa8da; /* Azul claro */
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 8px;
+            border: 1px dashed #9fa8da;
+        }
+
+        .cartel-armas-details {
+            background-color: #b71c1c; /* Rojo oscuro */
+            color: #ffcdd2; /* Rosa claro */
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 8px;
+            border: 1px dotted #ffcdd2;
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <h2>CORALIA - FACCIÓN Y CAMINOS ILEGALES</h2>
+
+    <div class="info-section nivel-faccion-section">
+        <div class="section-header" onclick="toggleSection('nivel-faccion')">Niveles de Facción</div>
+        <div id="nivel-faccion" class="section-content">
+            <div class="level-info">
+                <h4>PANDILLA (NVL 1)</h4>
+                <p><strong>Máximo de Miembros:</strong> 5</p>
+                <p><strong>Armamento:</strong> Armas Blancas y Pistolas Legales [Beretta M9 y Colt M1911 (Solo una persona)]</p>
+                <button class="toggle-details-button" onclick="toggleDetails('pandilla-requisitos')">Mostrar Requisitos</button>
+                <ul id="pandilla-requisitos" class="requisitos-list">
+                    <li>Misión importante completada</li>
+                    <li>Pago de suma (20.000€)</li>
+                    <li>Actividad diaria</li>
+                    <li>Buen rol</li>
+                </ul>
+            </div>
+            <div class="level-info">
+                <h4>BANDA (NVL 2)</h4>
+                <p><strong>Máximo de miembros:</strong> 7</p>
+                <p><strong>Armamento:</strong> Armas Blancas, Pistolas Legales, TEC-9 (Solo 1) y Desert Deagle (Solo 1)</p>
+                <button class="toggle-details-button" onclick="toggleDetails('banda-requisitos')">Mostrar Requisitos</button>
+                <ul id="banda-requisitos" class="requisitos-list">
+                    <li>2 Misiones importantes completadas</li>
+                    <li>Pago de suma (40.000€)</li>
+                    <li>Actividad diaria</li>
+                    <li>Buen rol</li>
+                </ul>
+            </div>
+            <div class="level-info">
+                <h4>MAFIA (NVL 3)</h4>
+                <p><strong>Máximo de miembros:</strong> 10</p>
+                <p><strong>Armamento:</strong> Armas Blancas, Pistolas Legales, TEC-9 (Solo 2), Desert Deagle (Solo 1), LMT L129A1 (Solo 1) y Remington 870 (La pueden llevar como arma secundaria en el maletero solo 2 personas)</p>
+                <p><strong>Especialidad Ilegal:</strong> Escoger de los disponibles (Cartel de Droga, Terroristas, Traficante de Armas y Ladrones de Élite)</p>
+                <button class="toggle-details-button" onclick="toggleDetails('mafia-requisitos')">Mostrar Requisitos</button>
+                <ul id="mafia-requisitos" class="requisitos-list">
+                    <li>3 Misiones Mensuales (Durante 5 meses)</li>
+                    <li>Pago de suma (100.000€)</li>
+                    <li>Misión Grande</li>
+                    <li>Actividad diaria</li>
+                    <li>Buen rol</li>
+                </ul>
+            </div>
+            <div class="level-info">
+                <h4>ORGANIZACIÓN CRIMINAL (NVL 4 = MÁXIMO)</h4>
+                <p><strong>Máximo de miembros:</strong> 15</p>
+                <p><strong>Armamento:</strong> Todas las armas que estén en el mercado negro con excepciones: Tec-9, Kriss Vector, Skorpion (máx. 3), Desert Deagle, Colt Python (máx. 3), LMT L129A1 (máx. 2), AK-47 (máx. 2), PPSH 41 (máx. 1), Remington 870 (máx. 2 como secundaria en maletero o 2 como principal)</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="info-section camino-ilegal-section">
+        <div class="section-header" onclick="toggleSection('caminos-ilegales')">Caminos Ilegales</div>
+        <div id="caminos-ilegales" class="section-content">
+            <div class="illegal-path-info">
+                <h4>CARTEL DE DROGA</h4>
+                <p>Función principal: Crear y vender drogas con efectos en rol.</p>
+                <button class="toggle-details-button" onclick="toggleDetails('cartel-droga-detalles')">Mostrar Detalles</button>
+                <div id="cartel-droga-detalles" class="cartel-droga-details">
+                    <h5>Drogas:</h5>
+                    <ul class="droga-list">
+                        <li>
+                            <strong>Veritas</strong> - Obliga a decir la verdad (10 min)
+                            <div class="droga-details">Ingredientes: Nerviox (Químico 1), Relacium (Semilla) <button class="toggle-details-button" onclick="toggleDetails('veritas-procedimiento')">Procedimiento</button><div id="veritas-procedimiento" class="mision-details">Tritura Relacium, corta hojas jóvenes, mezcla con Nerviox y agua, calienta, recoge gas en recipiente presurizado.</div></div>
+                        </li>
+                        <li>
+                            <strong>Oblivix</strong> - Pérdida total de memoria reciente (PK del ROL)
+                            <div class="droga-details">Ingredientes: Dormex (Químico 2), Somnalux (Químico 3) <button class="toggle-details-button" onclick="toggleDetails('oblivix-procedimiento')">Procedimiento</button><div id="oblivix-procedimiento" class="mision-details">Mezcla Dormex y Somnalux, calienta, enfría, tritura, mezcla con aglutinante, compacta en pastillas.</div></div>
+                        </li>
+                        <li>
+                            <strong>Plumisión</strong> - Obedece órdenes (5 min)
+                            <div class="droga-details">Ingredientes: Nerviox (Químico 1), Relacium (Semilla), Somnalux (Químico 3) <button class="toggle-details-button" onclick="toggleDetails('plumision-procedimiento')">Procedimiento</button><div id="plumision-procedimiento" class="mision-details">Extrae aceite de Relacium, corta flores, mezcla aceite con Nerviox y flores, añade Somnalux, introduce en gotero.</div></div>
+                        </li>
+                        <li>
+                            <strong>Thanatox</strong> - Muerte instantánea (NO CK)
+                            <div class="droga-details">Ingredientes: Dormex (Químico 2), Nerviox (Químico 1) <button class="toggle-details-button" onclick="toggleDetails('thanatox-procedimiento')">Procedimiento</button><div id="thanatox-procedimiento" class="mision-details">Mezcla Dormex y Nerviox en recipiente hermético, calienta a alta presión, enfría, filtra, envasa en jeringas.</div></div>
+                        </li>
+                        <li>
+                            <strong>Dormivex</strong> - Inconsciencia total (15-20 min)
+                            <div class="droga-details">Ingredientes: Relacium (Semilla), Somnalux (Químico 3) <button class="toggle-details-button" onclick="toggleDetails('dormivex-procedimiento')">Procedimiento</button><div id="dormivex-procedimiento" class="mision-details">Tritura Relacium, corta raíces, derrite chocolate, mezcla con Somnalux, Relacium y raíces, vierte en moldes.</div></div>
+                        </li>
+                    </ul>
+                    <h5>Procedimiento General:</h5>
+                    <ul class="misiones-list">
+                        <li><strong>Plantación:</strong> Plantar y regar semillas en la plantación verde (máx. 3 por persona). Enviar video al plantar y recoger (30 min después).</li>
+                        <li><strong>Laboratorio:</strong> Procesar drogas en la caseta de zona de pesca. Enviar video de la mitad de la producción.</li>
+                        <li><strong>Comercio y Transporte:</strong> Utilizar Chevlon Commuter Van 2006 (conductor y copiloto). Enviar entorno al vender.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="illegal-path-info">
+                <h4>CARTEL DE ARMAS</h4>
+                <p>Función principal: Fabricar, vender y transportar armas ilegales.</p>
+                <button class="toggle-details-button" onclick="toggleDetails('cartel-armas-detalles')">Mostrar Detalles</button>
+                <div id="cartel-armas-detalles" class="cartel-armas-details">
+                    <h5>Armas Fabricables:</h5>
+                    <ul class="armas-list">
+                        <li><strong>Armas Cortas:</strong> Desert Deagle, Tec-9, Colt Python</li>
+                        <li><strong>Armas Medias:</strong> Skorpion, Kriss Vector, Remington 870</li>
+                        <li><strong>Armas Largas:</strong> Ak47, LMT L129A1, PPSH 41</li>
+                        <li><strong>Nota:</strong> Las armas legales no se fabrican, pero se pueden comprar y hacer packs.</li>
+                    </ul>
+                    <h5>Misiones Mensuales:</h5>
+                    <ul class="misiones-list">
+                        <li>
+                            <strong>Asalto a un furgón de pruebas de la policía:</strong>
+                            <div class="mision-details">Asaltar convoy policial con armas o piezas. Recorrido aleatorio (pagar para plan o patrullar). Éxito -> Contacto con mafia administrativa -> Elegir entre 3 armas sorteadas (<a href="https://echaloasuerte.com/item/11b19c30-0e35-4169-b1a4-09e7982e58f4" target="_blank">Sorteo de Armas</a>) o número de piezas (5-50) (<a href="https://echaloasuerte.com/number/344b93f1-2dfb-4749-a13c-ad0889def926" target="_blank">Sorteo de Piezas</a>).</div>
+                        </li>
+                        <li>
+                            <strong>Asalto a almacén encubierto:</strong>
+                            <div class="mision-details">Zona: Housing Rotonda CP 700. Tiroteo y persecución policial.</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleSection(id) {
+            const sectionContent = document.getElementById(id);
+            const sectionHeader = sectionContent.previousElementSibling;
+            sectionContent.classList.toggle('show');
+            sectionHeader.classList.toggle('active');
+        }
+
+        function toggleDetails(id) {
+            const details = document.getElementById(id);
+            details.style.display = details.style.display === 'none' ? 'block' : 'none';
+        }
+    </script>
+
+</body>
+</html>
